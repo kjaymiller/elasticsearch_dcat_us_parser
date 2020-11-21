@@ -14,15 +14,11 @@ def gen_id(*args):
 
 
 def modify_dataset(datasets, **kwargs):
+    """Compile key valies for dataset options"""
     for dataset in datasets:
-        dataset['_id'] = gen_id(dataset['identifier'], dataset['contactPoint']['fn'])
-        dataset["city"] = kwargs.get('city', '')
-        dataset["region"] = kwargs.get('region', '')
-        url = dataset['identifier'].replace('_', '-')
+        for x,y in kwargs.items():
+            dataset[x] = y
 
-        if url.endswith('gis'):
-            url = url[:-4]
-        dataset['url'] = kwargs.get('base_url') + "/" + url
         yield dataset
 
 
